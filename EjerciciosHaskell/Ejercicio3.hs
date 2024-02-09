@@ -12,13 +12,13 @@ largo = length
 -- Función para crear el diccionario de palabras y longitudes
 creardiccionario :: String -> Map String Int
 creardiccionario frase =
-    let palabras = separar frase
-        longitudPalabras = map largo palabras
-    in Map.fromList (zip palabras longitudPalabras)
+  let palabras = separar frase
+      longitudPalabras = map largo palabras
+   in Map.fromList (zip palabras longitudPalabras)
 
 -- Ejemplo de uso
 main :: IO ()
 main = do
-    let frase = "Esta es una frase de ejemplo"
-    let diccionario = creardiccionario frase
-    print diccionario
+  let frase = "Hola en este momento son las 10:50 pm y ya me canse"
+  let diccionario = creardiccionario frase
+  print diccionario
