@@ -6,7 +6,8 @@ sumarLista (x:xs) = x + sumarLista(xs)
 sumarLista [] = 0
 
 factorial :: Int -> Int 
-factorial (x) = x*(x-1)
+factorial 0 = 1
+factorial (x) = x* factorial (x-1)
 
 numerosPares :: Int -> [Int]
 numerosPares (x) = if x > 0
