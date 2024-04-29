@@ -1,0 +1,78 @@
+% --- Hechos ---
+% Definición de hierbas con sus propiedades y Hierbas que me tocaron
+hierba('epazote', ['Desparacitante', 'Analgesico', 'antiinflamarotio']).
+hierba('Enebro', ['sudorifico','antisifilito','antireumatico','diuretico','estomaquico','aperitivo']).
+hierba('Estafiate', ['Desparacitante', 'amebicida', ' antiespasmódico','aperitivo']).
+
+% Descripción de propiedades
+propiedad('Desparacitante', 'Elimina parásitos del cuerpo humano o animal').
+propiedad('Analgesico', 'Alivia el dolor sin eliminar la sensación de este').
+propiedad('antiinflamarotio', 'Reduce la inflamación en el cuerpo, aliviando síntomas como enrojecimiento, hinchazón y dolor').
+propiedad('sudorífico', 'Induce o aumenta la sudoración del cuerpo').
+propiedad('antisifilito', 'Trata la sífilis').
+propiedad('antireumatico', 'Alivia los síntomas y trata las enfermedades reumáticas').
+propiedad('diurético', 'Aumenta la producción de orina').
+propiedad('diurético', 'AuEstafiate la producción de orina').
+propiedad('estomaquico', 'Ayuda a aliviar los trastornos estomacales y mejora la digestión').
+propiedad('aperitivo', 'Estimula el apetito y se consume antes de las comidas para aumentar el deseo de comer').
+
+% Descripción de enfermedades y sus síntomas
+:- discontiguous enfermedad/2.
+enfermedad('Hidropesía', ['retención de líquidos', 'hinchazón generalizada', 'dificultad para respirar']).
+enfermedad('Edemas', ['hinchazón en varias partes del cuerpo', 'piel estirada o brillante', 'dolor o sensibilidad en el área afectada']).
+enfermedad('Nefrolitiasis', ['dolor intenso en la espalda, costado o abdomen', 'náuseas y vómitos', 'sangre en la orina']).
+enfermedad('Disnea', ['sensación de falta de aire o dificultad para respirar', 'respiración rápida o superficial', 'ansiedad']).
+enfermedad('Anemia', ['fatiga y debilidad', 'palidez en la piel', 'mareos o sensación de desmayo']).
+enfermedad('Dispepsia', ['sensación de malestar o ardor en el estómago', 'acidez estomacal', 'hinchazón abdominal']).
+enfermedad('Reumatismo', ['dolor e inflamación en las articulaciones', 'rigidez matutina', 'fatiga']).
+enfermedad('Sífilis', ['úlceras indoloras en los genitales, ano o boca', 'erupción cutánea', 'fiebre']).
+enfermedad('Parasitosis', ['dolor abdominal o cólicos', 'diarrea', 'fatiga y debilidad']).
+enfermedad('Amebiasis', ['diarrea con sangre o moco', 'dolor abdominal y cólicos', 'pérdida de peso']).
+enfermedad('Cólicos', ['dolor abdominal intermitente y agudo', 'irritabilidad', 'distensión abdominal']).
+
+% Relación entre enfermedades y hierbas utilizadas para tratarlas
+tratamiento('Hidropesía', 'epazote').
+tratamiento('Edemas', 'Enebro').
+tratamiento('Nefrolitiasis', 'Enebro').
+tratamiento('Disnea', 'Enebro').
+tratamiento('Anemia', 'epazote').
+tratamiento('Dispepsia', 'Enebro').
+tratamiento('Reumatismo', 'Enebro').
+tratamiento('Sífilis', 'Enebro').
+tratamiento('Parasitosis', 'epazote').
+tratamiento('Amebiasis', 'Estafiate').
+tratamiento('Cólicos', 'Estafiate').
+
+% Definición de formas de empleo de hierbas
+se_emplea_de_forma('epazote', 'infusión').
+se_emplea_de_forma('Enebro', 'inhalación').
+se_emplea_de_forma('Estafiate', 'infusión').
+
+% Descripción de contraindicaciones para hierbas
+contraindicacion('epazote', 'embarazo').
+contraindicacion('Estafiate', 'gastritis').
+contraindicacion('Enebro', 'asma').
+
+% --- Reglas ---
+
+% Regla para identificar el tratamiento adecuado para una enfermedad
+tratamiento_adecuado(Enfermedad, Hierba) :-
+    tratamiento(Enfermedad, Hierba),
+    \+ contraindicacion(Hierba, _).
+
+% Regla para saber si una hierba puede tratar una enfermedad
+puede_tratar(Hierba, Enfermedad) :-
+    tratamiento_adecuado(Enfermedad, Hierba).
+
+% Regla para identificar si una hierba tiene contraindicaciones
+tiene_contraindicacion(Hierba, Condicion) :-
+    contraindicacion(Hierba, Condicion).
+
+% Regla para verificar si una hierba tiene una propiedad específica
+tiene_propiedad(Hierba, Propiedad) :-
+    hierba(Hierba, Propiedades),
+    member(Propiedad, Propiedades).
+
+% Regla para verificar la forma de empleo de una hierba
+forma_de_empleo(Hierba, Forma) :-
+    se_emplea_de_forma(Hierba, Forma).
